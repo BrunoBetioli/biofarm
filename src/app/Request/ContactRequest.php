@@ -47,7 +47,7 @@ trait ContactRequest
             $return[] = 'O email não pode estar em branco.';
         } elseif (isset($this->sanitized_contact['email']) && !filter_var($this->sanitized_contact['email'], FILTER_VALIDATE_EMAIL)) {
             $return[] = 'Digite um email válido.';
-        } elseif (($checkUserEmail = $this->Contact->contact(array('email' => $this->sanitized_contact['email']))) && $checkUserEmail->id != $this->sanitized_contact['id']) {
+        } elseif (($checkContactEmail = $this->Contact->contact(array('email' => $this->sanitized_contact['email']))) && $checkContactEmail->id != $this->sanitized_contact['id']) {
             $return[] = 'Este email já está cadastrado.';
         }
 
