@@ -1,0 +1,22 @@
+{
+    "name": "brunobetioli/biofarm",
+    "description": "Processo Seletivo Biofarm",
+    "type": "project",
+    "license": "",
+    "authors": [
+        {
+            "name": "Bruno Betioli",
+            "email": "brunobetioli@yahoo.com.br"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "autoload" : {
+        "psr-0": {
+             "app\\": "src/",
+             "libs\\": "src/",
+             "helpers\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,334 @@
+<?php $arrLinkUserProfile = array(
+    'controller' => 'users',
+    'action' => ($is_profile ? 'profile' : 'user'),
+    'params' => array(
+        'id' => $user->id
+    )
+);
+if ($is_profile) {
+    unset($arrLinkUserProfile['params']);
+} ?>
+<!-- Croppie -->
+<link href='<?php echo $this->link('/vendors/croppie/croppie.css');?>' rel='stylesheet' />
+<style>
+.crop-upload {
+	position: relative;
+}
+.crop-upload .thumbnail {
+	width: 100%;
+	height: auto;
+	overflow: auto;
+}
+.crop-upload-wrap {
+	width: auto;
+	height: auto;
+	margin: 0 auto;
+}
+
+.crop-upload-msg {
+	text-align: center;
+	/* padding-top: 100%; */
+	font-size: 20px;
+	color: #aaa;
+	/* width: 100%; */
+	width: 300px;
+	max-width: 100%;
+	height: 300px;
+	margin: auto;
+	border: 1px solid #aaa;
+	position: relative;
+}
+
+@media(max-width: 992px) and (min-width: 768px) {
+	.crop-upload-msg { font-size: 16px; }
+}
+
+@media(min-width: 768px) {
+	.crop-upload-msg {
+		padding-top: 100%;
+		height: auto;
+	}
+}
+
+@media(max-width: 399px) {
+	.crop-upload-msg {
+		padding-top: 100%;
+		height: auto;
+		font-size: 16px;
+	}
+}
+
+.crop-upload-msg span {
+	position: absolute;
+	margin: 0 auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.crop-upload .btn {
+	margin-top: 15px;
+}
+.crop-upload .btn-file input[type='file'] {
+	cursor: inherit;
+	display: none;
+	font-size: 100px;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	position: absolute;
+	right: 0;
+	text-align: right;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 1;
+}
+.crop-upload .btn-remove-picture {
+	z-index: 2;
+	position: relative;
+}
+.cr-slider::-webkit-slider-thumb {
+	background: #1A5632;
+}
+
+label.btn {
+	margin-bottom: 0;
+}
+</style>
+<nav aria-label='breadcrumb'>
+	<ol class='breadcrumb d-none d-md-flex'>
+		Você está em: 
+		<li class='breadcrumb-item ml-1'>
+			<a alt='Página inicial' title='Página inicial' href='<?php echo $this->link(array('controller' => 'dashboard'));?>'>
+				<i class='fa fa-home'><span class='sr-only'>Página inicial</span></i>
+			</a>
+		</li>
+        <?php if ($action !== 'profile') { ?>
+        <li class='breadcrumb-item active'>
+            <a href='<?php echo $this->link(array('controller' => 'users'));?>'>
+                <i class='fa fa-user'></i>
+                Usuários
+            </a>
+        </li>
+        <?php } ?>
+		<li class='breadcrumb-item active'>
+			<a href='<?php echo $this->link($arrLinkUserProfile);?>'>
+				<?php echo $breadcrumb;?>
+			</a>
+		</li>
+	</ol>
+</nav>
+
+<?php echo $sessionReturn; ?>
+
+<!-- Page Heading -->
+<div class='d-sm-flex align-items-center justify-content-between mb-4'>
+	<h1 class='h4 mb-0 text-gray-800'><?php echo $breadcrumb;?></h1>
+</div>
+
+<form enctype='multipart/form-data' id='mainForm' method='post' class='row'>
+	<div class='col-lg-3 order-lg-2 col-md-12'>
+		<div class='card shadow mb-4'>
+			<div class='card-header'><h6 class='m-0 font-weight-bold text-dark'>Foto</h6></div>
+			<div class='card-body crop-upload text-center'>
+				<div id='img-container'>
+				<?php if (!empty($user->picture) || !empty($user->picture_base64)) { ?>
+					<img src='<?php echo (!empty($user->picture_base64) ? $user->picture_base64 : $this->link($user->picture)) ;?>' class='thumbnail img-responsive center-block' />
+				<?php } ?>
+				</div>
+				<div class='col-sm-12 crop-msg-container center-block <?php echo $class_crop_msg_container; ?>'>
+					<div class='crop-upload-msg'>
+						<span>Sem foto</span>
+					</div>
+				</div>
+				<div>
+					<label class='btn btn-info btn-file' role='button' type='button' href='#'>
+						<i class='fas fa-fw fa-camera'></i>
+						<span>Alterar foto</span>
+						<input type='file' id='upload' value='Alterar foto' title='Alterar foto' accept='image/*' />
+					</label>
+					<button class='btn btn-danger btn-remove-picture <?php echo $class_btn_remove_picture; ?>' type='button'>
+						<i class='fas fa-fw fa-times'></i>
+						<span>Remover foto</span>
+					</button>
+					<input type='hidden' name='remove_picture' id='remove_picture' value='<?php echo $user->remove_picture;?>' />
+					<input type='hidden' name='picture_base64' id='picture_base64' value='<?php echo $user->picture_base64;?>' />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='col-lg-9 order-lg-1 col-md-12'>
+		<div class='card shadow mb-4'>
+			<div class='card-header'><h6 class='m-0 font-weight-bold text-dark'>Dados</h6></div>
+			<div class='card-body'>
+				<div class='form-group'>
+					<label for='name'>Nome <span class='text-danger'>*</span></label>
+					<input type='text' name='name' id='name' class='form-control' value='<?php echo $user->name;?>' />
+				</div>
+				<div class='form-group'>
+					<label for='email'>Email <span class='text-danger'>*</span></label>
+					<input type='email' name='email' id='email' class='form-control' value='<?php echo $user->email;?>' />
+				</div>
+				<div class='form-group'>
+					<label for='password'>Senha</label>
+					<input type='password' name='password' id='password' class='form-control' value='' />
+				</div>
+				<div class='form-group'>
+					<label class='form-label' for='password'>Confirmar senha</label>
+					<input type='password' name='confirm_password' id='confirm_password' class='form-control' value='' />
+				</div>
+				<div class='form-group'>
+					<label class='form-label' for='status'>Status do usuário <span class='text-danger'>*</span></label>
+					<select name='status' id='status' class='form-control show-tick'>
+						<?php foreach ($arrStatus as $key => $value) { ?>
+						<option value='<?php echo $key; ?>'<?php if ($user->status == $key) echo " selected='selected'"; ?>><?php echo $value; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<div class='form-group'>
+					 <span class='text-danger'>*</span> Campos obrigatórios
+				</div>
+				<div class='form-group'>
+					<input type='hidden' name='id' id='id' value='<?php echo $user->id; ?>' />
+					<button type='submit' class='btn btn-success' alt='Salvar' title='Salvar'>
+						<i class='fas fa-fw fa-save'></i>
+						<span class='hidden-xs'>Salvar</span>
+					</button>
+					<a href='<?php echo $this->link(array('controller' => 'users'));?>' class='btn btn-danger' alt='Cancelar' title='Cancelar'>
+						<i class='fas fa-fw fa-arrow-circle-left'></i>
+						<span class='hidden-xs'>Cancelar</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<div class='modal themed fade' id='crop-upload-modal' tabindex='-1' role='dialog' aria-hidden='true'>
+	<div class='modal-dialog modal-large'>
+		<div class='modal-content'>
+
+			<div class='modal-header bg-success'>
+				<h6 class='modal-title font-weight-bold text-white'>Enviar foto</h6>
+				<button type='button' class='close text-white' data-dismiss='modal' aria-label='Close'>
+				  <span aria-hidden='true'>&times;</span>
+				</button>
+			</div>
+			<div class='modal-body crop-upload'>
+				<div class='crop-upload-wrap'>
+					<div id='crop-upload'></div>
+				</div>
+				<div class='clearfix'></div>
+			</div>
+			<div class='modal-footer'>
+				<button class='btn btn-success waves-effect upload-result'>
+					<i class='fas fa-fw fa-check'></i>
+					<span>OK</span>
+				</button>
+				<button type='button' class='btn btn-danger waves-effect' data-dismiss='modal'>
+					<i class='fas fa-fw fa-times'></i>
+					<span>Cancelar</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Croppie.js -->
+<script src='<?php echo $this->link('/vendors/croppie/croppie.js');?>'></script>
+<script>
+$(document).ready(function(){
+
+	function setResult(result) {
+		var html;
+		if (result.html) {
+			html = result.html;
+		}
+		if (result.src) {
+			html = '<img class="thumbnail img-responsive center-block" src="' + result.src + '" />';
+		}
+		$('#img-container').html(html);
+	}
+
+	function cropUpload() {
+		var $uploadCrop;
+
+		function readFile(input) {
+ 			if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+
+	            reader.onload = function (e) {
+					$('#crop-upload-modal').modal('show');
+                    setTimeout(function() {
+                        $uploadCrop.croppie('bind', {
+                            url: e.target.result
+                        }).then(function(){
+                            console.log('jQuery bind complete');
+                        });
+                    }, 250);
+	            }
+
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	        else {
+		        alert('Desculpe. Seu navegador não é compatível com o nosso upload de fotos.');
+		    }
+		}
+
+		$uploadCrop = $('#crop-upload').croppie({
+			viewport: {
+				width: 300,
+				height: 300,
+				type: 'square'
+			},
+			enableExif: true,
+            boundary: {
+                width: 400,
+                height: 400
+            }
+		});
+
+		$('#upload').on({
+            click: function (e) {
+                var windowWidth = $(window).width();
+                var windowHeight = $(window).height();
+                if (windowWidth < 480 || windowHeight < 640) {
+                    alert('Não é possível abrir nosso plugin de upload de imagem em um dispositivo com esta resolução.\nAltura mínima: 640px; Altura atual: ' + windowHeight + '\nLargura mínima: 480px; Largura atual: ' + windowWidth );
+                    return false;
+                }
+            },
+            change: function (e) { readFile(this); }
+        });
+		$('.upload-result').on('click', function (ev) {
+            ev.preventDefault();
+			$uploadCrop.croppie('result', {
+				type: 'canvas',
+				size: 'viewport'
+			}).then(function (resp) {
+                $('#picture_base64').val(resp);
+                $('#remove_picture').val('');
+				setResult({
+					src: resp
+				});
+                $('#crop-upload-modal').modal('hide');
+                $('.crop-msg-container').addClass('d-none');
+                $('.btn-remove-picture').removeClass('d-none');
+			});
+		});
+		$('.btn-remove-picture').on('click', function (e) {
+            e.preventDefault();
+            $('#remove_picture').val('delete');
+            $('#picture_base64').val('');
+            $('#img-container').html('');
+            $('.crop-msg-container').removeClass('d-none');
+            $('.btn-remove-picture').addClass('d-none');
+		});
+            
+	}
+
+    cropUpload();
+});
+</script>

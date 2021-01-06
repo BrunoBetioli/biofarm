@@ -1,0 +1,4 @@
+<?php
+    if (isset($sessionReturn) && isset($success)) {
+        echo json_encode(array('success' => $success, 'return' => $sessionReturn), JSON_UNESCAPED_SLASHES);
+    }
