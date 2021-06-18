@@ -10,21 +10,21 @@ use libs\Router;
         )
     );
 
-	Router::connect(
+    Router::connect(
         '/login/',
         array(
             'controller' => 'users',
             'action' => 'login'
         )
     );
-	Router::connect(
+    Router::connect(
         '/logout/',
         array(
             'controller' => 'users',
             'action' => 'logout'
         )
     );
-	Router::connect(
+    Router::connect(
         '/profile/',
         array(
             'controller' => 'users',
@@ -35,4 +35,4 @@ use libs\Router;
     Router::connect('/:controller/:page', array('action' => 'index'));
     Router::connect('/:controller/:action/:id');
 
-	require ROOT . DS . LIBS . DS . 'routes.php';
+    require ROOT . DS . LIBS . DS . 'routes.php';

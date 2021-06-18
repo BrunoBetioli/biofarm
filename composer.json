@@ -16,7 +16,7 @@
         "psr-0": {
              "app\\": "src/",
              "libs\\": "src/",
-             "helpers\\": "src/"
+             "plugins\\": "src/"
         }
     }
 }

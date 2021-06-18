@@ -1,6 +1,6 @@
 <?php
 
-namespace libs;
+namespace app\Libraries;
 
 use \DateTime;
 
@@ -67,36 +67,36 @@ class DataFilter
     */
     static function stripslashes_fields($st_array, $fields = array())
     {
-		$is_object = false;
+        $is_object = false;
 
-		if (is_object($st_array)) {
-			$st_array = (array) $st_array;
-			$is_object = true;
-		}
+        if (is_object($st_array)) {
+            $st_array = (array) $st_array;
+            $is_object = true;
+        }
 
-		foreach ($st_array as $key => $value) {
-			if (!empty($fields)) {
-				if (in_array($key, $fields)) {
-					if (is_array($value)) {
-						$st_array[$key] = self::stripslashes_fields($value, $fields);
-					} elseif(is_object($value)) {
-						$value = (array) $value;
-						$st_array[$key] = (object) self::stripslashes_fields($value, $fields);
-					} else {
-						$st_array[$key] = stripslashes($value);
-					}
-				}
-			} else {
-				if (is_array($value)) {
-					$st_array[$key] = self::stripslashes_fields($value);
-				} elseif(is_object($value)) {
-					$value = (array) $value;
-					$st_array[$key] = (object) self::stripslashes_fields($value);
-				} else {
-					$st_array[$key] = stripslashes($value);
-				}
-			}
-		}
+        foreach ($st_array as $key => $value) {
+            if (!empty($fields)) {
+                if (in_array($key, $fields)) {
+                    if (is_array($value)) {
+                        $st_array[$key] = self::stripslashes_fields($value, $fields);
+                    } elseif(is_object($value)) {
+                        $value = (array) $value;
+                        $st_array[$key] = (object) self::stripslashes_fields($value, $fields);
+                    } else {
+                        $st_array[$key] = stripslashes($value);
+                    }
+                }
+            } else {
+                if (is_array($value)) {
+                    $st_array[$key] = self::stripslashes_fields($value);
+                } elseif(is_object($value)) {
+                    $value = (array) $value;
+                    $st_array[$key] = (object) self::stripslashes_fields($value);
+                } else {
+                    $st_array[$key] = stripslashes($value);
+                }
+            }
+        }
 
         return ($is_object ? (object) $st_array : $st_array);
     }
@@ -108,14 +108,14 @@ class DataFilter
     */
     static function date_format_fields($st_array, $fields = array(), $to_format = 'Y-m-d H:i:s', $from_format = 'Y-m-d H:i:s')
     {
-		$is_object = false;
+        $is_object = false;
 
-		if (is_object($st_array)) {
-			$st_array = (array) $st_array;
-			$is_object = true;
-		}
+        if (is_object($st_array)) {
+            $st_array = (array) $st_array;
+            $is_object = true;
+        }
 
-		foreach ($st_array as $key => $value) {
+        foreach ($st_array as $key => $value) {
             if (is_numeric($key)) {
                 $st_array[$key] = self::date_format_fields($value, $fields, $to_format, $from_format);
             } else {
@@ -140,8 +140,8 @@ class DataFilter
                         $st_array[$key] = self::dateOrHour($value, $to_format, $from_format);
                     }
                 }
-			}
-		}
+            }
+        }
 
         return ($is_object ? (object) $st_array : $st_array);
     }

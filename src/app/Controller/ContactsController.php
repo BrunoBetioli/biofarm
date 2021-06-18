@@ -1,7 +1,7 @@
 <?php
 use app\Controller\AppController;
 use app\Request\ContactRequest;
-use libs\DataFilter;
+use app\Libraries\DataFilter;
 
 class ContactsController extends AppController
 {
@@ -43,20 +43,20 @@ class ContactsController extends AppController
         $error_msg = null;
 
         if ($totalPages >= 1) {
-			if ($page <= $totalPages) {
-				$this->Pagination->setCurrent($page);
-				$this->Pagination->setTotal($totalContacts);
-				$pagination = $this->Pagination->parse();
-			} else {
-				$error_msg = 'Esta página não existe. Por favor, volte para a lista de contatos.';
-			}
+            if ($page <= $totalPages) {
+                $this->Pagination->setCurrent($page);
+                $this->Pagination->setTotal($totalContacts);
+                $pagination = $this->Pagination->parse();
+            } else {
+                $error_msg = 'Esta página não existe. Por favor, volte para a lista de contatos.';
+            }
         } elseif (empty($contacts)) {
-			$error_msg = 'Não há contatos'.(empty($this->requestFields) ? ' cadastrados' : ' nesta pesquisa').'.';
-		}
+            $error_msg = 'Não há contatos'.(empty($this->requestFields) ? ' cadastrados' : ' nesta pesquisa').'.';
+        }
 
-		$default_get_fields = array(
-			'name' => ''
-		);
+        $default_get_fields = array(
+            'name' => ''
+        );
 
         $this->set('get_fields', (!empty($this->requestFields) ? $this->requestFields : $default_get_fields));
         $this->set('page', $page);

@@ -2,11 +2,11 @@
 
 namespace app\Request;
 
-use helpers\DocumentChecker\DocumentChecker;
 use libs\Model;
-use libs\DataFilter;
-use libs\DataValidator;
 use libs\Router;
+use app\Libraries\DataFilter;
+use app\Libraries\DataValidator;
+use app\Libraries\DocumentChecker;
 
 trait ContactRequest
 {

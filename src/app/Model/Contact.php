@@ -3,8 +3,8 @@
 namespace app\Model;
 
 use libs\Model;
-use libs\DataFilter;
-use libs\DataValidator;
+use app\Libraries\DataFilter;
+use app\Libraries\DataValidator;
 use libs\Router;
 use libs\SessionHandler;
 use vendors\DocumentChecker\DocumentChecker;

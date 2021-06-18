@@ -386,11 +386,11 @@ class Router {
     {
         $newUrl = null;
 
-		if (is_bool($full)) {
-			$escape = false;
-		} else {
-			extract($full + array('escape' => false, 'full' => false));
-		}
+        if (is_bool($full)) {
+            $escape = false;
+        } else {
+            extract($full + array('escape' => false, 'full' => false));
+        }
 
         if (is_string($url)) {
             if (filter_var($url, FILTER_VALIDATE_URL)) {
@@ -417,38 +417,38 @@ class Router {
             foreach($routes as $route => $arrRoute) {
                 $routeEdited = key($arrRoute);
                 $urlParams = $url;
-				$params = isset($urlParams['params']) && !empty($urlParams['params']) ? $urlParams['params'] : null;
-				unset($urlParams['params']);
-				unset($urlParams['querystring']);
+                $params = isset($urlParams['params']) && !empty($urlParams['params']) ? $urlParams['params'] : null;
+                unset($urlParams['params']);
+                unset($urlParams['querystring']);
                 $paramsURL = $arrParams = array();
 
-				$allParams = false;
+                $allParams = false;
                 if (array_search($urlParams, $arrRoute) !== false) {
-					if (!empty($params)) {
-						foreach ($params as $keyParam => $param) {
-							if (($pos = strpos($routeEdited, $separator.$keyParam)) !== false) {
-								$routeEdited = substr_replace($routeEdited, $param, $pos, strlen($separator.$keyParam));
-								$allParams = true;
-							}
-						}
+                    if (!empty($params)) {
+                        foreach ($params as $keyParam => $param) {
+                            if (($pos = strpos($routeEdited, $separator.$keyParam)) !== false) {
+                                $routeEdited = substr_replace($routeEdited, $param, $pos, strlen($separator.$keyParam));
+                                $allParams = true;
+                            }
+                        }
                     } else {
-						$allParams = true;
-					}
+                        $allParams = true;
+                    }
 
-					if ($allParams) {
-						$rulesUrl = array_keys($rules);
-						$paramsMissing = false;
-						foreach ($rulesUrl as $ruleUrl) {
-							if (($pos = strpos($routeEdited, $separator.$ruleUrl)) !== false) {
-								$paramsMissing = true;
-								break;
-							}
-						}
-						if (!$paramsMissing) {
-							$newUrl = $routeEdited;
-							break;
-						}
-					}
+                    if ($allParams) {
+                        $rulesUrl = array_keys($rules);
+                        $paramsMissing = false;
+                        foreach ($rulesUrl as $ruleUrl) {
+                            if (($pos = strpos($routeEdited, $separator.$ruleUrl)) !== false) {
+                                $paramsMissing = true;
+                                break;
+                            }
+                        }
+                        if (!$paramsMissing) {
+                            $newUrl = $routeEdited;
+                            break;
+                        }
+                    }
                 }
             }
 
@@ -539,21 +539,21 @@ class Router {
         foreach ($preRoutes as $key => $ruleRoute) {
             $regexRoute = $ruleRoute[0] != "/" ? rtrim($ruleRoute[0], "/") : $ruleRoute[0];
             $arrParams = array();
-			$countParam = 0;
+            $countParam = 0;
             foreach ($rules as $ruleParam => $rule) {
-				if (($count = substr_count($regexRoute, $separator.$ruleParam)) > 0) {
-					while (($pos = strpos($regexRoute, $separator.$ruleParam)) !== false) { 
-						if (!in_array($ruleParam, $arrParams) || !in_array($ruleParam, array('controller', 'action'))) {
-							if (in_array($ruleParam, $arrParams)) {
-								$countParam++;
-								$arrParams[(int) $pos] = $ruleReplace = $ruleParam.$countParam;
-							} else {
-								$arrParams[(int) $pos] = $ruleReplace = $ruleParam;
-							}
-							$regexRoute = substr_replace($regexRoute, $rule, $pos, strlen($separator.$ruleReplace));
-							
-						}
-					}
+                if (($count = substr_count($regexRoute, $separator.$ruleParam)) > 0) {
+                    while (($pos = strpos($regexRoute, $separator.$ruleParam)) !== false) {
+                        if (!in_array($ruleParam, $arrParams) || !in_array($ruleParam, array('controller', 'action'))) {
+                            if (in_array($ruleParam, $arrParams)) {
+                                $countParam++;
+                                $arrParams[(int) $pos] = $ruleReplace = $ruleParam.$countParam;
+                            } else {
+                                $arrParams[(int) $pos] = $ruleReplace = $ruleParam;
+                            }
+                            $regexRoute = substr_replace($regexRoute, $rule, $pos, strlen($separator.$ruleReplace));
+
+                        }
+                    }
                 }
             }
             $arrRuleRoutes[] = $currentRule = '/^'.str_replace('/', '\/', $regexRoute).'$/i';
@@ -563,12 +563,12 @@ class Router {
                 unset($result[0]);
                 ksort($arrParams);
                 $params = array_combine($arrParams, $result) + $routes[$key][$ruleRoute[0]];
-				foreach ($params as $key => $value) {
-					if (!in_array($key, array('prefix', 'controller', 'action')) && !in_array($key, Router::$_prefixes)) {
-						$params['params'][$key] = $value;
-						unset($params[$key]);
-					}
-				}
+                foreach ($params as $key => $value) {
+                    if (!in_array($key, array('prefix', 'controller', 'action')) && !in_array($key, Router::$_prefixes)) {
+                        $params['params'][$key] = $value;
+                        unset($params[$key]);
+                    }
+                }
                 break;
             }
         }

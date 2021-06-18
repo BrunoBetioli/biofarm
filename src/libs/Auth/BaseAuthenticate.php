@@ -16,28 +16,28 @@ abstract class BaseAuthenticate
         ),
         'userModel' => 'User',
         'conditions' => array(),
-		'messages' => array(
-			'error_user' => 'User not found or not authorized!',
-			'error_password' => 'Invalid password!',
-			'success' => 'Login successfully. Welcome {{name}}!'
-		),
-		'success' => array(
-			'return' => true,
-			'replace' => true,
-			'field' => 'name',
-		),
+        'messages' => array(
+            'error_user' => 'User not found or not authorized!',
+            'error_password' => 'Invalid password!',
+            'success' => 'Login successfully. Welcome {{name}}!'
+        ),
+        'success' => array(
+            'return' => true,
+            'replace' => true,
+            'field' => 'name',
+        ),
         'passwordHasher' => 'Simple',
-		'flash' => array(
-			'element' => 'alert',
-			'key' => 'flash',
-			'params' => array()
-		),
-		'classAlert' => array(
-			'success' => 'alert alert-success',
-			'warning' => 'alert alert-warning',
-			'info' => 'alert alert-info',
-			'danger' => 'alert alert-danger'
-		)
+        'flash' => array(
+            'element' => 'alert',
+            'key' => 'flash',
+            'params' => array()
+        ),
+        'classAlert' => array(
+            'success' => 'alert alert-success',
+            'warning' => 'alert alert-warning',
+            'info' => 'alert alert-info',
+            'danger' => 'alert alert-danger'
+        )
     );
 
     protected $_passwordHasher;
@@ -95,9 +95,9 @@ abstract class BaseAuthenticate
                 $this->SessionHandler->setFlash($this->settings['messages']['error_password'], $this->settings['flash']['element'], array('class' => $this->settings['classAlert']['danger']), $this->settings['flash']['key']);
                 return false;
             } elseif ($this->settings['success']['return'] === true) {
-				$message = $this->settings['success']['replace'] === true ? str_replace('{{'.$this->settings['success']['field'].'}}', $user[$this->settings['success']['field']], $this->settings['messages']['success']) : $this->settings['messages']['success'];
-				$this->SessionHandler->setFlash($message, $this->settings['flash']['element'], array('class' => $this->settings['classAlert']['success']), $this->settings['flash']['key']);
-			}
+                $message = $this->settings['success']['replace'] === true ? str_replace('{{'.$this->settings['success']['field'].'}}', $user[$this->settings['success']['field']], $this->settings['messages']['success']) : $this->settings['messages']['success'];
+                $this->SessionHandler->setFlash($message, $this->settings['flash']['element'], array('class' => $this->settings['classAlert']['success']), $this->settings['flash']['key']);
+            }
             unset($user[$fields['password']]);
         }
 

@@ -6,19 +6,19 @@ use \Exception;
 
 class Loader
 {
-    
+
     public static function loadModel(Controller $Controller)
     {
         $models = $defaultModel = $modelsParent = array();
-        
+
         $nameDefaultModel = str_replace('Controller', '', get_class($Controller));
         $modelPlurals = array('s', 'es', 'ies');
-        
+
         if (file_exists(ROOT.DS.APP.DS.'Model'.DS.$nameDefaultModel.".php")) {
             $defaultModel = array($nameDefaultModel);
         } else {
             foreach($modelPlurals as $plural) {
-                $tryDefaultModel = trim($nameDefaultModel, $plural);
+                $tryDefaultModel = trim($nameDefaultModel, $plural).($plural == 'ies' ? 'y' : null);
                 if (file_exists(ROOT.DS.APP.DS.'Model'.DS.$tryDefaultModel.".php")) {
                     $defaultModel = array($tryDefaultModel);
                 }
@@ -38,7 +38,7 @@ class Loader
             foreach ($models as $nameModel) {
                 $pathModel = 'app\Model\\'.$nameModel;
                 if (file_exists(ROOT.DS.APP.DS.'Model'.DS.$nameModel.".php")) {
-                    $Controller->$nameModel = new $pathModel();            
+                    $Controller->$nameModel = new $pathModel();
                 } else {
                     if (!in_array($nameModel, $defaultModel)) {
                         throw new Exception("Model '$nameModel' não existe");
@@ -48,7 +48,7 @@ class Loader
         }
         return $Controller;
     }
-    
+
     public static function loadComponent($Object)
     {
         if (isset($Object->components) && !empty($Object->components)) {

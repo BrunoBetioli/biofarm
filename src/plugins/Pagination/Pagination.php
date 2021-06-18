@@ -1,14 +1,14 @@
 <?php
-namespace helpers\Pagination;
+namespace plugins\Pagination;
 
     /**
      * Pagination
-     * 
+     *
      * Supplies an API for setting pagination details, and renders the resulting
      * pagination markup (html) through the included render.inc.php file.
-     * 
+     *
      * @note    The SEO methods (canonical/rel) were written following Google's
-     *          suggested patterns. Namely, the canoical url excludes any 
+     *          suggested patterns. Namely, the canoical url excludes any
      *          peripheral parameters that don't relate to the pagination
      *          series. Whereas the prev/next rel link tags include any params
      *          found in the request.
@@ -20,18 +20,18 @@ namespace helpers\Pagination;
     {
         /**
          * _variables
-         * 
+         *
          * Sets default variables for the rendering of the pagination markup.
-         * 
+         *
          * @var     array
          * @access  protected
          */
         protected $_variables = array(
             'classes' => array(
-				'ul' => array('clearfix', 'pagination'),
-				'li' => '',
-				'a' => ''
-			),
+                'ul' => array('clearfix', 'pagination'),
+                'li' => '',
+                'a' => ''
+            ),
             'crumbs' => 5,
             'rpp' => 10,
             'key' => 'page',
@@ -46,7 +46,7 @@ namespace helpers\Pagination;
 
         /**
          * __construct
-         * 
+         *
          * @access  public
          * @param   integer $current (default: null)
          * @param   integer $total (default: null)
@@ -60,10 +60,10 @@ namespace helpers\Pagination;
 
         /**
          * _check
-         * 
+         *
          * Checks the current (page) and total (records) parameters to ensure
          * they've been set. Throws an exception otherwise.
-         * 
+         *
          * @access  protected
          * @return  void
          */
@@ -78,10 +78,10 @@ namespace helpers\Pagination;
 
         /**
          * addClasses
-         * 
+         *
          * Sets the classes to be added to the pagination div node.
          * Useful with Twitter Bootstrap (eg. pagination-centered, etc.)
-         * 
+         *
          * @see     http://twitter.github.com/bootstrap/components.html#pagination
          * @access  public
          * @param   mixed $classes
@@ -97,10 +97,10 @@ namespace helpers\Pagination;
 
         /**
          * alwaysShowPagination
-         * 
+         *
          * Tells the rendering engine to show the pagination links even if there
          * aren't any pages to paginate through.
-         * 
+         *
          * @access  public
          * @return  void
          */
@@ -111,7 +111,7 @@ namespace helpers\Pagination;
 
         /**
          * getCanonicalUrl
-         * 
+         *
          * @access  public
          * @return  string
          */
@@ -130,7 +130,7 @@ namespace helpers\Pagination;
 
         /**
          * getPageParam
-         * 
+         *
          * @access  public
          * @param   boolean|integer $page (default: false)
          * @return  string
@@ -147,7 +147,7 @@ namespace helpers\Pagination;
 
         /**
          * getPageUrl
-         * 
+         *
          * @access  public
          * @param   boolean|integer $page (default: false)
          * @return  string
@@ -163,7 +163,7 @@ namespace helpers\Pagination;
 
         /**
          * getRelPrevNextLinkTags
-         * 
+         *
          * @see     http://support.google.com/webmasters/bin/answer.py?hl=en&answer=1663744
          * @see     http://googlewebmastercentral.blogspot.ca/2011/09/pagination-with-relnext-and-relprev.html
          * @see     http://support.google.com/webmasters/bin/answer.py?hl=en&answer=139394
@@ -227,10 +227,10 @@ namespace helpers\Pagination;
 
         /**
          * parse
-         * 
+         *
          * Parses the pagination markup based on the parameters set and the
          * logic found in the render.inc.php file.
-         * 
+         *
          * @access  public
          * @return  void
          */
@@ -254,7 +254,7 @@ namespace helpers\Pagination;
 
         /**
          * setClasses
-         * 
+         *
          * @see     http://twitter.github.com/bootstrap/components.html#pagination
          * @access  public
          * @param   mixed $classes
@@ -267,10 +267,10 @@ namespace helpers\Pagination;
 
         /**
          * setClean
-         * 
+         *
          * Sets the pagination to exclude page numbers, and only output
          * previous/next markup. The counter-method of this is self::setFull.
-         * 
+         *
          * @access  public
          * @return  void
          */
@@ -281,10 +281,10 @@ namespace helpers\Pagination;
 
         /**
          * setCrumbs
-         * 
+         *
          * Sets the maximum number of 'crumbs' (eg. numerical page items)
          * available.
-         * 
+         *
          * @access  public
          * @param   integer $crumbs
          * @return  void
@@ -296,9 +296,9 @@ namespace helpers\Pagination;
 
         /**
          * setCurrent
-         * 
+         *
          * Sets the current page being viewed.
-         * 
+         *
          * @access  public
          * @param   integer $current
          * @return  void
@@ -310,9 +310,9 @@ namespace helpers\Pagination;
 
         /**
          * setFull
-         * 
+         *
          * See self::setClean for documentation.
-         * 
+         *
          * @access  public
          * @return  void
          */
@@ -323,10 +323,10 @@ namespace helpers\Pagination;
 
         /**
          * setKey
-         * 
+         *
          * Sets the key of the <_GET> array that contains, and ought to contain,
          * paging information (eg. which page is being viewed).
-         * 
+         *
          * @access  public
          * @param   string $key
          * @return  void
@@ -338,9 +338,9 @@ namespace helpers\Pagination;
 
         /**
          * setNext
-         * 
+         *
          * Sets the copy of the next anchor.
-         * 
+         *
          * @access  public
          * @param   string $str
          * @return  void
@@ -352,9 +352,9 @@ namespace helpers\Pagination;
 
         /**
          * setNext
-         * 
+         *
          * Sets the label text of the next anchor.
-         * 
+         *
          * @access  public
          * @param   string $str
          * @return  void
@@ -366,9 +366,9 @@ namespace helpers\Pagination;
 
         /**
          * setPrevious
-         * 
+         *
          * Sets the copy of the previous anchor.
-         * 
+         *
          * @access  public
          * @param   string $str
          * @return  void
@@ -380,9 +380,9 @@ namespace helpers\Pagination;
 
         /**
          * setPrevious
-         * 
+         *
          * Sets the label text of the previous anchor.
-         * 
+         *
          * @access  public
          * @param   string $str
          * @return  void
@@ -394,10 +394,10 @@ namespace helpers\Pagination;
 
         /**
          * setRpp
-         * 
+         *
          * Sets the number of records per page (used for determining total
          * number of pages).
-         * 
+         *
          * @access  public
          * @param   integer $rpp
          * @return  void
@@ -409,9 +409,9 @@ namespace helpers\Pagination;
 
         /**
          * setTarget
-         * 
+         *
          * Sets the leading path for anchors.
-         * 
+         *
          * @access  public
          * @param   string $target
          * @return  void
@@ -423,9 +423,9 @@ namespace helpers\Pagination;
 
         /**
          * setTotal
-         * 
+         *
          * Sets the total number of records available for pagination.
-         * 
+         *
          * @access  public
          * @param   integer $total
          * @return  void

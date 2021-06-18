@@ -60,7 +60,7 @@ class View {
                 } else {
                     $this->{strtolower($type)} = $file;
                 }
-            } else {                
+            } else {
                 $this->{strtolower($type)} = $file;
             }
         }
@@ -72,7 +72,7 @@ class View {
         if (!empty($file)) {
             $viewFile = (string) $this->setFileView($file, 'View');
         }
-        
+
         return $this->loadView($viewFile, $dataArray);
     }
 

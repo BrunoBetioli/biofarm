@@ -31,13 +31,13 @@ use libs\Router;
 $prefixes = Router::prefixes();
 
 foreach ($prefixes as $prefix) {
-	$params = array('prefix' => $prefix, $prefix => true);
-	$indexParams = $params + array('action' => 'index');
-	Router::connect("/{$prefix}/:controller", $indexParams);
-	Router::connect("/{$prefix}/:controller/:action/*", $params);
+    $params = array('prefix' => $prefix, $prefix => true);
+    $indexParams = $params + array('action' => 'index');
+    Router::connect("/{$prefix}/:controller", $indexParams);
+    Router::connect("/{$prefix}/:controller/:action/*", $params);
 }
 Router::connect('/:controller', array('action' => 'index'));
 Router::connect('/:controller/:action/*');
 
 unset($namedConfig, $params, $indexParams, $prefix, $prefixes, $shortParams, $match,
-	$pluginPattern, $plugins, $key, $value);
+    $pluginPattern, $plugins, $key, $value);

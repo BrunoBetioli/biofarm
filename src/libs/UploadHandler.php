@@ -1336,7 +1336,7 @@ class UploadHandler
                 // $upload is a multi-dimensional array:
                 foreach ($upload['tmp_name'] as $index => $value) {
                     $upload['name'][$index] = !empty($this->options['new_file_name']) ?
-                        $this->options['new_file_name'].'_'.$index : $upload['name'][$index]; 
+                        $this->options['new_file_name'].'_'.$index : $upload['name'][$index];
                     $files[] = $this->handle_file_upload(
                         $upload['tmp_name'][$index],
                         $file_name ? $file_name : (isset($upload['name'][$index]) ?

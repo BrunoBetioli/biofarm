@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers\DocumentChecker;
+namespace app\Libraries;
 /**
  * DocumentChecker valida e formata CPF e CNPJ
  *
@@ -14,11 +14,11 @@ namespace helpers\DocumentChecker;
 class DocumentChecker
 {
     public $value;
-    /** 
+    /**
     * Configura o valor (Construtor)
-    * 
+    *
     * Remove caracteres inválidos do CPF ou CNPJ
-    * 
+    *
     * @param string $value - O CPF ou CNPJ
     */
     function __construct ($value = null)
@@ -29,12 +29,12 @@ class DocumentChecker
         /* Garante que o value é uma string */
         $this->value = (string) $this->value;
     }
- 
+
     /**
      * Verifica se é CPF ou CNPJ
-     * 
+     *
      * Se for CPF tem 11 caracteres, CNPJ tem 14
-     * 
+     *
      * @access public
      * @return string CPF, CNPJ ou false
      */
@@ -43,20 +43,20 @@ class DocumentChecker
         /* Verifica CPF */
         if (strlen($this->value) === 11) {
             return 'CPF';
-        } 
+        }
         /* Verifica CNPJ */
         elseif (strlen($this->value) === 14) {
             return 'CNPJ';
-        } 
+        }
         /* Não retorna nada */
         else {
             return false;
         }
     }
-    
+
     /**
      * Verifica se todos os números são iguais
-     * * 
+     * *
      * @access protected
      * @return bool true para todos iguais, false para números que podem ser válidos
      */
@@ -64,31 +64,31 @@ class DocumentChecker
     {
         /* Todos os caracteres em um array */
         $characters = str_split($this->value);
-        
+
         /* Considera que todos os números são iguais */
         $same_values = true;
-        
+
         /* Primeiro caractere */
         $last_val = $characters[0];
-        
+
         /* Verifica todos os caracteres para detectar diferença */
         foreach($characters as $val) {
-            
+
             /* Se o último valor for diferente do anterior, já temos
                um número diferente no CPF ou CNPJ */
             if ($last_val != $val) {
-                $same_values = false; 
+                $same_values = false;
             }
-            
+
             /* Grava o último número checado */
             $last_val = $val;
         }
-        
+
         /* Retorna true para todos os números iguais
            ou falso para todos os números diferentes */
         return $same_values;
     }
- 
+
     /**
      * Multiplica dígitos vezes posições
      *
@@ -144,7 +144,7 @@ class DocumentChecker
         /* Retorna */
         return $doc;
     }
- 
+
     /**
      * Valida CPF
      *
@@ -178,7 +178,7 @@ class DocumentChecker
             return false;
         }
     }
- 
+
     /**
      * Valida CNPJ
      *
@@ -213,12 +213,12 @@ class DocumentChecker
             return true;
         }
     }
- 
+
     /**
      * Valida
-     * 
+     *
      * Valida o CPF ou CNPJ
-     * 
+     *
      * @access public
      * @return bool      True para válido, false para inválido
      */
@@ -228,18 +228,18 @@ class DocumentChecker
         if ($this->check_cpf_cnpj() === 'CPF') {
             /* Retorna true para cpf válido */
             return $this->validate_cpf();
-        } 
+        }
         /* Valida CNPJ */
         elseif ($this->check_cpf_cnpj() === 'CNPJ') {
             /* Retorna true para CNPJ válido */
             return $this->validate_cnpj();
-        } 
+        }
         /* Não retorna nada */
         else {
             return false;
         }
     }
- 
+
     /**
      * Formata CPF ou CNPJ
      *
@@ -261,7 +261,7 @@ class DocumentChecker
                 $formated .= substr($this->value, 6, 3) . '-';
                 $formated .= substr($this->value, 9, 2) . '';
             }
-        } 
+        }
         /* Valida CNPJ */
         elseif ($this->check_cpf_cnpj() === 'CNPJ') {
             /* Verifica se o CPF é válido */

@@ -1,26 +1,26 @@
 <?php
 if (!defined('DS')) {
-	define('DS', DIRECTORY_SEPARATOR);
+    define('DS', DIRECTORY_SEPARATOR);
 }
 
 if (!defined('APP')) {
-	define('APP', 'src'.DS.'app');
+    define('APP', 'src'.DS.'app');
 }
 
 if (!defined('LIBS')) {
-	define('LIBS', 'src'.DS.'libs');
+    define('LIBS', 'src'.DS.'libs');
 }
 
 if (!defined('ROOT')) {
-	define('ROOT', dirname(dirname(__FILE__)));
+    define('ROOT', dirname(dirname(__FILE__)));
 }
 
 if (!defined('WEBROOT')) {
-	define('WEBROOT', basename(dirname(__FILE__)));
+    define('WEBROOT', basename(dirname(__FILE__)));
 }
 
 if (!defined('WWW_ROOT')) {
-	define('WWW_ROOT', dirname(__FILE__) . DS);
+    define('WWW_ROOT', dirname(__FILE__) . DS);
 }
 
 // Use HTTP Strict Transport Security to force client to use secure connections only

@@ -11,11 +11,11 @@ class DatabaseConfig
             'default' => [
                 'datasource' => 'mysql',
                 'persistent' => false,
-                'host' => 'localhost',
-                'login' => 'root',
+                'host' => '',
+                'login' => '',
                 'password' => '',
                 'charset' => 'utf8',
-                'database' => 'biofarm'
+                'database' => ''
             ]
         ];
 

@@ -16,7 +16,7 @@ class Controller extends Application  {
     public $methods = array();
 
     public $params = array();
-    
+
     public $url;
 
     public function beforeFilter()

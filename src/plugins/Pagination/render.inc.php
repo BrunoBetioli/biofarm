@@ -2,7 +2,7 @@
     // total page count calculation
     $pages = ((int) ceil($total / $rpp));
 
-	$disabled_params = 'tabindex="-1" aria-disabled="true"';
+    $disabled_params = 'tabindex="-1" aria-disabled="true"';
     // if there are pages to be shown
     if (($pages > 1 || $alwaysShowPagination === true) && $current <= $pages) {
 ?>
@@ -14,14 +14,14 @@
 
         // anchor classes and target
         //$classes = array('copy', 'previous');
-		$previous_classes = $classes['li'];
-		$previous_params = null;
+        $previous_classes = $classes['li'];
+        $previous_params = null;
         $params = $get;
         if (!empty($key)) {
             $params[$key] = ($current - 1);
             $href = ($target) . '?' . http_build_query($params);
         } else {
-            $href = ($target) . ($current - 1) . (!empty($params) ? '?' . http_build_query($params) : null);   
+            $href = ($target) . ($current - 1) . (!empty($params) ? '?' . http_build_query($params) : null);
         }
         $href = preg_replace(
             array('/=$/', '/=&/'),
@@ -31,7 +31,7 @@
         if ($current === 1) {
             $href = '#';
             array_push($previous_classes, 'disabled');
-			$previous_params = $disabled_params;
+            $previous_params = $disabled_params;
         }
 ?>
     <li class='<?= implode(' ', $previous_classes) ?>' alt='<?= ($previous_label) ?>' title='<?= ($previous_label) ?>'><a class='<?= implode(' ', $classes['a']) ?>' href='<?= ($href) ?>'<?= ($previous_params) ?>><?= ($previous) ?></a></li>
@@ -74,7 +74,7 @@
                     $params[$key] = ($current + $x - $leading);
                     $href = ($target) . '?' . http_build_query($params);
                 } else {
-                    $href = ($target) . ($current + $x - $leading) . (!empty($params) ? '?' . http_build_query($params) : null);   
+                    $href = ($target) . ($current + $x - $leading) . (!empty($params) ? '?' . http_build_query($params) : null);
                 }
                 $href = preg_replace(
                     array('/=$/', '/=&/'),
@@ -99,7 +99,7 @@
                     $params[$key] = ($current + $x + 1);
                     $href = ($target) . '?' . http_build_query($params);
                 } else {
-                    $href = ($target) . ($current + $x + 1) . (!empty($params) ? '?' . http_build_query($params) : null);   
+                    $href = ($target) . ($current + $x + 1) . (!empty($params) ? '?' . http_build_query($params) : null);
                 }
                 $href = preg_replace(
                     array('/=$/', '/=&/'),
@@ -118,14 +118,14 @@
 
         // anchor classes and target
         //$classes = array('copy', 'next');
-		$next_classes = $classes['li'];
-		$next_params = null;
+        $next_classes = $classes['li'];
+        $next_params = null;
         $params = $get;
         if (!empty($key)) {
             $params[$key] = ($current + 1);
             $href = ($target) . '?' . http_build_query($params);
         } else {
-            $href = ($target) . ($current + 1) . (!empty($params) ? '?' . http_build_query($params) : null);   
+            $href = ($target) . ($current + 1) . (!empty($params) ? '?' . http_build_query($params) : null);
         }
         $href = preg_replace(
             array('/=$/', '/=&/'),
@@ -135,7 +135,7 @@
         if ($current === $pages) {
             $href = '#';
             array_push($next_classes, 'disabled');
-			$next_params = $disabled_params;
+            $next_params = $disabled_params;
         }
 ?>
     <li class='<?= implode(' ', $next_classes) ?>' alt='<?= ($next_label) ?>' title='<?= ($next_label) ?>'><a class='<?= implode(' ', $classes['a']) ?>' href='<?= ($href) ?>'<?= ($next_params) ?>><?= ($next) ?></a></li>

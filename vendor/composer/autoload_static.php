@@ -7,16 +7,16 @@ namespace Composer\Autoload;
 class ComposerStaticInitade7d719482c087c86aba7384e3fb84b
 {
     public static $prefixesPsr0 = array (
-        'l' => 
+        'p' => 
         array (
-            'libs\\' => 
+            'plugins\\' => 
             array (
                 0 => __DIR__ . '/../..' . '/src',
             ),
         ),
-        'h' => 
+        'l' => 
         array (
-            'helpers\\' => 
+            'libs\\' => 
             array (
                 0 => __DIR__ . '/../..' . '/src',
             ),
@@ -30,10 +30,15 @@ class ComposerStaticInitade7d719482c087c86aba7384e3fb84b
         ),
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixesPsr0 = ComposerStaticInitade7d719482c087c86aba7384e3fb84b::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitade7d719482c087c86aba7384e3fb84b::$classMap;
 
         }, null, ClassLoader::class);
     }

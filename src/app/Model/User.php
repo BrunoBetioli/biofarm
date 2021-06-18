@@ -2,8 +2,8 @@
 
 namespace app\Model;
 
+use app\Libraries\DataFilter;
 use libs\Model;
-use libs\DataFilter;
 use libs\Router;
 use libs\SessionHandler;
 use libs\UploadHandler;
@@ -71,9 +71,9 @@ class User extends Model
             }
         }
 
-		$users = DataFilter::stripslashes_fields($this->query($query), $this->fields_slashed);
+        $users = DataFilter::stripslashes_fields($this->query($query), $this->fields_slashed);
         if (defined('SITE_DATE_FORMAT') && defined('SITE_TIME_FORMAT')) {
-			$users = DataFilter::date_format_fields($users, $this->datetime_fields, SITE_DATE_FORMAT.' '.SITE_TIME_FORMAT);
+            $users = DataFilter::date_format_fields($users, $this->datetime_fields, SITE_DATE_FORMAT.' '.SITE_TIME_FORMAT);
         }
         return $users;
     }
@@ -115,7 +115,7 @@ class User extends Model
             $user = $this->query($sql, array($fieldValue), false);
             if (!empty($user)) {
                 $this->user = DataFilter::stripslashes_fields($user, $this->fields_slashed);
-				$this->user = DataFilter::date_format_fields($this->user, $this->datetime_fields, SITE_DATE_FORMAT.' '.SITE_TIME_FORMAT);
+                $this->user = DataFilter::date_format_fields($this->user, $this->datetime_fields, SITE_DATE_FORMAT.' '.SITE_TIME_FORMAT);
                 unset($this->user->password);
             }
         }

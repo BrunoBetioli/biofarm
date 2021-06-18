@@ -1,7 +1,7 @@
 <?php
 use app\Controller\AppController;
 use app\Request\UserRequest;
-use libs\DataFilter;
+use app\Libraries\DataFilter;
 
 class UsersController extends AppController
 {
@@ -75,20 +75,20 @@ class UsersController extends AppController
         $error_msg = null;
 
         if ($totalPages >= 1) {
-			if ($page <= $totalPages) {
-				$this->Pagination->setCurrent($page);
-				$this->Pagination->setTotal($totalUsers);
-				$pagination = $this->Pagination->parse();
-			} else {
-				$error_msg = 'Esta página não existe. Por favor, volte para a lista de usuários.';
-			}
+            if ($page <= $totalPages) {
+                $this->Pagination->setCurrent($page);
+                $this->Pagination->setTotal($totalUsers);
+                $pagination = $this->Pagination->parse();
+            } else {
+                $error_msg = 'Esta página não existe. Por favor, volte para a lista de usuários.';
+            }
         } elseif (empty($users)) {
-			$error_msg = 'Não há usuários'.(empty($this->requestFields) ? ' cadastrados' : ' nesta pesquisa').'.';
-		}
+            $error_msg = 'Não há usuários'.(empty($this->requestFields) ? ' cadastrados' : ' nesta pesquisa').'.';
+        }
 
-		$default_get_fields = array(
-			'name' => ''
-		);
+        $default_get_fields = array(
+            'name' => ''
+        );
 
         $this->set('get_fields', (!empty($this->requestFields) ? $this->requestFields : $default_get_fields));
         $this->set('page', $page);
@@ -190,7 +190,7 @@ class UsersController extends AppController
             if ($id > 0) {
                 $user = $this->User->user(array('id' => $id));
                 if (!empty($user)) {
-                    if ($id == $this->logged->id) {                        
+                    if ($id == $this->logged->id) {
                         $arrReturn = array(
                             'return' => 'Você não pode remover seu próprio usuário.',
                             'classAlert' => array('class' => self::classAlert['danger']),
@@ -203,7 +203,7 @@ class UsersController extends AppController
                         $delete = $this->User->deleteUser($id);
                         if ($delete === true || $delete > 0) {
                             if ($id == $this->logged->id) {
-                                
+
                             }
                             $arrReturn = array(
                                 'return' => 'Usuário removido com sucesso.',

@@ -10,9 +10,9 @@ class SessionHandler {
  * @param string $userAgent Set the userAgent
  * @return void
  */
-	public function userAgent($userAgent = null) {
-		return Session::userAgent($userAgent);
-	}
+    public function userAgent($userAgent = null) {
+        return Session::userAgent($userAgent);
+    }
 
 /**
  * Used to write a value to a session key.
@@ -24,9 +24,9 @@ class SessionHandler {
  * @param string $value The value you want to store in a session.
  * @return boolean Success
  */
-	public function write($name, $value = null) {
-		return Session::write($name, $value);
-	}
+    public function write($name, $value = null) {
+        return Session::write($name, $value);
+    }
 
 /**
  * Used to read a session values set in a controller for a key or return values for all keys.
@@ -37,9 +37,9 @@ class SessionHandler {
  * @param string $name the name of the session key you want to read
  * @return mixed values from the session vars
  */
-	public function read($name = null) {
-		return Session::read($name);
-	}
+    public function read($name = null) {
+        return Session::read($name);
+    }
 
 /**
  * Wrapper for SessionComponent::del();
@@ -49,9 +49,9 @@ class SessionHandler {
  * @param string $name the name of the session key you want to delete
  * @return boolean true is session variable is set and can be deleted, false is variable was not set.
  */
-	public function delete($name) {
-		return Session::delete($name);
-	}
+    public function delete($name) {
+        return Session::delete($name);
+    }
 
 /**
  * Used to check is a session key has been set
@@ -61,9 +61,9 @@ class SessionHandler {
  * @param string $name
  * @return boolean
  */
-	public function check($name) {
-		return Session::check($name);
-	}
+    public function check($name) {
+        return Session::check($name);
+    }
 
 /**
  * Returns last error encountered in a session
@@ -72,9 +72,9 @@ class SessionHandler {
  *
  * @return string last error
  */
-	public function error() {
-		return Session::error();
-	}
+    public function error() {
+        return Session::error();
+    }
 
 /**
  * Used to set a session variable that can be used to output messages in the view.
@@ -91,9 +91,9 @@ class SessionHandler {
  * @param string $key Message key, default is 'flash'
  * @return void
  */
-	public function setFlash($message, $element = 'default', $params = array(), $key = 'flash') {
-		Session::write('Message.' . $key, compact('message', 'element', 'params'));
-	}
+    public function setFlash($message, $element = 'default', $params = array(), $key = 'flash') {
+        Session::write('Message.' . $key, compact('message', 'element', 'params'));
+    }
 
 /**
  * Used to render the message set in Controller::Session::setFlash()
@@ -141,23 +141,23 @@ class SessionHandler {
  *    Supports the 'params', and 'element' keys that are used in the helper.
  * @return string
  */
-	public function flash($key = 'flash', $attrs = array()) {
-		$out = false;
+    public function flash($key = 'flash', $attrs = array()) {
+        $out = false;
 
-		if (Session::check('Message.' . $key)) {
-			$flash = Session::read('Message.' . $key);
-			$message = $flash['message'];
-			unset($flash['message']);
+        if (Session::check('Message.' . $key)) {
+            $flash = Session::read('Message.' . $key);
+            $message = $flash['message'];
+            unset($flash['message']);
 
-			if (!empty($attrs)) {
-				$flash = array_merge($flash, $attrs);
-			}
+            if (!empty($attrs)) {
+                $flash = array_merge($flash, $attrs);
+            }
 
-			if ($flash['element'] === 'alert') {
-				$class = 'message';
-				if (!empty($flash['params']['class'])) {
-					$class = $flash['params']['class'];
-				}
+            if ($flash['element'] === 'alert') {
+                $class = 'message';
+                if (!empty($flash['params']['class'])) {
+                    $class = $flash['params']['class'];
+                }
                 if (is_array($message)) {
                     $out = null;
                     foreach($message as $msg) {
@@ -166,13 +166,13 @@ class SessionHandler {
                 } else {
                     $out = "<div id='". $key . "Message' class='" . $class . "'>" . $message . " <a href='#' class='close' data-dismiss='alert'>×</a></div>";
                 }
-			} elseif (!$flash['element']) {
-				$out = $message;
-			}
-			Session::delete('Message.' . $key);
-		}
-		return $out;
-	}
+            } elseif (!$flash['element']) {
+                $out = $message;
+            }
+            Session::delete('Message.' . $key);
+        }
+        return $out;
+    }
 
 /**
  * Used to renew a session id
@@ -181,9 +181,9 @@ class SessionHandler {
  *
  * @return void
  */
-	public function renew() {
-		return Session::renew();
-	}
+    public function renew() {
+        return Session::renew();
+    }
 
 /**
  * Used to destroy sessions
@@ -192,9 +192,9 @@ class SessionHandler {
  *
  * @return void
  */
-	public function destroy() {
-		return Session::destroy();
-	}
+    public function destroy() {
+        return Session::destroy();
+    }
 
 /**
  * Get/Set the session id.
@@ -206,29 +206,29 @@ class SessionHandler {
  * @param string $id Id to use (optional)
  * @return string The current session id.
  */
-	public function id($id = null) {
-		if (empty($id)) {
-			Session::start();
-		}
-		return Session::id($id);
-	}
+    public function id($id = null) {
+        if (empty($id)) {
+            Session::start();
+        }
+        return Session::id($id);
+    }
 
 /**
  * Used to check is a session is valid in a view
  *
  * @return boolean
  */
-	public function valid() {
-		return Session::valid();
-	}
+    public function valid() {
+        return Session::valid();
+    }
 
 /**
  * Returns a bool, whether or not the session has been started.
  *
  * @return boolean
  */
-	public function started() {
-		return Session::started();
-	}
+    public function started() {
+        return Session::started();
+    }
 
 }

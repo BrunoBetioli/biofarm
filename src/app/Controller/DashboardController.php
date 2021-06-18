@@ -33,15 +33,15 @@ class DashboardController extends AppController
             'orderBy' => 'c.created DESC'
         ));
 
-		if (empty($users)) {
-			$error_msg_users = 'Não há usuários cadastrados.';
-			$this->set('error_msg_users', $error_msg_users);
-		}
+        if (empty($users)) {
+            $error_msg_users = 'Não há usuários cadastrados.';
+            $this->set('error_msg_users', $error_msg_users);
+        }
 
-		if (empty($contacts)) {
-			$error_msg_contacts = 'Não há contatos cadastrados.';
-			$this->set('error_msg_contacts', $error_msg_contacts);
-		}
+        if (empty($contacts)) {
+            $error_msg_contacts = 'Não há contatos cadastrados.';
+            $this->set('error_msg_contacts', $error_msg_contacts);
+        }
 
         $this->set('countUsers', $countUsers[0]->count);
         $this->set('countContacts', $countContacts[0]->count);

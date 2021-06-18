@@ -34,12 +34,12 @@ class BasicAuthenticate extends BaseAuthenticate {
  * @param $collection The Component collection used on this request.
  * @param array $settings An array of settings.
  */
-	public function __construct($settings) {
-		parent::__construct($settings);
-		if (empty($this->settings['realm'])) {
-			$this->settings['realm'] = env('SERVER_NAME');
-		}
-	}
+    public function __construct($settings) {
+        parent::__construct($settings);
+        if (empty($this->settings['realm'])) {
+            $this->settings['realm'] = env('SERVER_NAME');
+        }
+    }
 
 /**
  * Authenticate a user using HTTP auth. Will use the configured User model and attempt a
@@ -49,9 +49,9 @@ class BasicAuthenticate extends BaseAuthenticate {
  * @param $response The response to add headers to.
  * @return mixed Either false on failure, or an array of user data on success.
  */
-	public function authenticate($request) {
-		return $this->getUser($request);
-	}
+    public function authenticate($request) {
+        return $this->getUser($request);
+    }
 
 /**
  * Get a user based on information in the request. Used by cookie-less auth for stateless clients.
@@ -59,15 +59,15 @@ class BasicAuthenticate extends BaseAuthenticate {
  * @param $request Request object.
  * @return mixed Either false or an array of user information
  */
-	public function getUser($request) {
+    public function getUser($request) {
         $username = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null;
         $pass = isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_PW'] : null;
-        
-		if (empty($username) || empty($pass)) {
-			return false;
-		}
-		return $this->_findUser($username, $pass);
-	}
+
+        if (empty($username) || empty($pass)) {
+            return false;
+        }
+        return $this->_findUser($username, $pass);
+    }
 
 /**
  * Handles an unauthenticated access attempt by sending appropriate login headers
@@ -76,19 +76,19 @@ class BasicAuthenticate extends BaseAuthenticate {
  * @return void
  * @throws UnauthorizedException
  */
-	public function unauthenticated($request) {
-		$Exception = new Exception();
-		$Exception->responseHeader(array($this->loginHeaders()));
-		throw $Exception;
-	}
+    public function unauthenticated($request) {
+        $Exception = new Exception();
+        $Exception->responseHeader(array($this->loginHeaders()));
+        throw $Exception;
+    }
 
 /**
  * Generate the login headers
  *
  * @return string Headers for logging in.
  */
-	public function loginHeaders() {
-		return sprintf('WWW-Authenticate: Basic realm="%s"', $this->settings['realm']);
-	}
+    public function loginHeaders() {
+        return sprintf('WWW-Authenticate: Basic realm="%s"', $this->settings['realm']);
+    }
 
 }
